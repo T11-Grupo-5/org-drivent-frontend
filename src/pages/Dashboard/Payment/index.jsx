@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 
 
 export default function Payment() {
+  useEffect(()=>{
+    
+  })
   return (
     <CsPayment>
       <h1>Ingresso e pagamento</h1>
