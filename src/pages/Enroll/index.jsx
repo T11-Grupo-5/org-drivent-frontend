@@ -40,8 +40,6 @@ export default function Enroll() {
     }
   }
 
-  //if(!eventInfo)return null
-
   return (
     <AuthLayout background={eventInfo.backgroundImageUrl}>
       <Row>
