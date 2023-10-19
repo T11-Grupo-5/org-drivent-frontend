@@ -1,3 +1,19 @@
+import { styled } from "styled-components";
+import ChoiceStage from "../../../components/HoteComponents/ChoiseStage";
+import MaybeChange from "../../../components/HoteComponents/MaybeChange";
+
+
+
 export default function Hotel() {
-  return 'Hotel: Em breve!';
+  return (
+    <CsHotel>
+      <h1>Escolha de hotel e quarto</h1>
+      <ChoiceStage />
+      <MaybeChange />
+    </CsHotel>
+  );
 }
+
+const CsHotel = styled.div`
+
+`;
