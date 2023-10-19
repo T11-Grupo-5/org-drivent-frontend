@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
 import { CardZone } from "./Cardzone";
+import { ConfirmationNotice } from "./ConfirmationNotice";
+
+
 export function CardContainer() {
     return (
         <CsCardContainer>
@@ -13,7 +16,9 @@ export function CardContainer() {
             <div className="container">
                 <h5>Pagamento</h5>
                 <CardZone/>
+                <ConfirmationNotice/>
             </div>
+            
             <button>FINALIZAR PAGAMENTO</button>
         </CsCardContainer>
     );
