@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ticketServices } from "../../../services/ticketsApi";
 import UserContext from "../../../contexts/UserContext";
+import { CardContainer } from '../../../components/Payment/cardStage';
+
 
 
 export default function Payment() {
@@ -10,6 +12,7 @@ export default function Payment() {
   const [ticketstype, setTicketType] = useState('')
   const [selectTickets, setSelectTickets] = useState(false)
   const [hotelInclude, sethotelInclude] = useState('')
+  
   useEffect(async()=>{
     try {
       const promise = await ticketServices.geTickets(userData.token)
@@ -85,17 +88,16 @@ export default function Payment() {
           </div>
         </div>
       </div>
-
       <div className="container">
         {ticketstype}
       </div>
         {hotelInclude}
+        <CardContainer/>
     </CsPayment>
   )
 
-
-
 }
+
 
 const CsPayment = styled.div`
   //border : 1px solid black;
@@ -113,6 +115,7 @@ const CsPayment = styled.div`
     letter-spacing: 0em;
     text-align: left;
   }
+  
   .container{
     margin-top:20px;
     h5{
@@ -154,3 +157,4 @@ const CsPayment = styled.div`
 
     }
 `;
+
