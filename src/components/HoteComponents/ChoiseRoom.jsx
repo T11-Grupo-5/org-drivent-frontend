@@ -18,6 +18,7 @@ export default function ChoiceRoom() {
           <RoomMold/>
           <RoomMold/>
         </div>
+        <button>RESERVAR QUARTO</button>
     </CsChoiceRoom>
   );
 }
