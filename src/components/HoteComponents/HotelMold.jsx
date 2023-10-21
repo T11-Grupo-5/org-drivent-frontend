@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 
-export default function HotelMold({ name, image }) {
+export default function HotelMold({ name, image, acomodationTypes, vacancy }) {
   return (
     <CsHotelMold>
         <div className="imgHotel">
@@ -10,10 +10,10 @@ export default function HotelMold({ name, image }) {
         <h2>{name}</h2>
 
         <h3>Tipos de acomodação:</h3>
-        <p>Single e Double</p>
+        <p>{acomodationTypes}</p>
 
         <h3>Vagas disponíveis:</h3>
-        <p>103</p>
+        <p>{vacancy}</p>
     </CsHotelMold>
   );
 }
