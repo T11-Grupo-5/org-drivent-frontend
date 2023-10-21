@@ -86,34 +86,28 @@ export default function ChoiceHotel() {
             }));
 
             setHotels(processedData);
-            // console.log(processedData)
             return processedData;
         }
 
         async function processVacancies(hotels) {
             // Use Promise.all with map to process hotel data.
-            let vacancy = 0;
-            console.log(hotels)
+
             const processedData = await Promise.all(hotels.map(async h => {
                 let vacancy = 0;
-                console.log("a")
+
                 const response = await Promise.all(h.Rooms.map(async r => {
-                    console.log("this just in")
+                    vacancy += r.capacity;
                     try {
                         const response = await getBookingsByRoomId(r.id, token);
-                        vacancy += response.length;
-                        // return r;
+                        vacancy -= response.length;
                     } catch (err) {
                         console.error(err);
-                        // return r; // Return the unmodified element in case of an error.
                     }
                 }));
                 
                 h.vacancy = vacancy;
                 return h
             }));
-
-            console.log(processedData)
 
             setHotels(processedData);
             return processedData;
