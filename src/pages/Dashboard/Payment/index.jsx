@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ticketServices } from "../../../services/ticketsApi";
 import UserContext from "../../../contexts/UserContext";
 import { CardContainer } from '../../../components/Payment/cardStage';
+import { getPersonalInformations } from "../../../services/enrollmentApi";
 
 
 
@@ -10,17 +11,31 @@ export default function Payment() {
   const { userData } = useContext(UserContext);
   const [tickets, setTickets] = useState([])
   const [ticketstype, setTicketType] = useState('')
+  const [ticketsReserved, setTicketsReserved] = useState([])
   const [hotelInclude, sethotelInclude] = useState('')
   const [ticketHotel, setticketHotel] = useState('')
   const [corSelect, setcorSelect] = useState('')
+  const [reserved, setReserved] = useState(false)
+  const [enrrolment, setEnrrolment] = useState(false)
   
-  useEffect(async()=>{
-    try {
-      const promise = await ticketServices.geTickets(userData.token)
-      setTickets(promise.data)
-    } catch (error) {
-      console.log(error.response.data)
+  useEffect(()=>{
+    async function requests(){
+      try {
+        const checkEnrrolment = await getPersonalInformations(userData.token)
+        console.log(checkEnrrolment)
+        const promise = await ticketServices.geTickets(userData.token)
+        setTickets(promise)
+        
+      } catch (error) {
+        console.log(error.response.data)
+        if(error.response.status === 400) {
+          setReserved(true)
+          setEnrrolment(true)
+        }
+      }
     }
+    requests()
+    
   }, [])
 
 
@@ -86,19 +101,34 @@ export default function Payment() {
   }
   function toReserve(price){
     console.log(price)
-    
+    setReserved(true)
     const ticket = tickets.filter((ticket) => {
       return ticket.price === price
     })
     console.log(ticket)
     console.log(tickets)
+    setTicketsReserved(ticket[0])
     //alert('ticket Reservado')
     }
-
+  
   return (
     <CsPayment>
-      <h1>Ingresso e pagamento</h1>
-
+      {reserved === true? (
+        enrrolment === false? ( <CardContainer ticket={ticketsReserved}/>) : 
+        (
+        <>
+        <h1>Ingresso e pagamento</h1>
+        <NoEnrrolment> 
+          Você precisa completar sua inscrição antes
+          de prosseguir pra escolha de ingresso
+        </NoEnrrolment>
+        </>)
+      )
+      
+       
+      :(
+        <>
+        <h1>Ingresso e pagamento</h1>
       <div className="container">
         <h5>Primeiro, escolha sua modalidade de ingresso</h5>
           <div className="options">
@@ -114,13 +144,29 @@ export default function Payment() {
         {ticketstype}
       </div>
         {ticketHotel}
-        <CardContainer/>
+        </>
+      )}
+      
+        
     </CsPayment>
   )
 
 }
 
+const NoEnrrolment = styled.div`
+  width: 388px;
+  margin: 0 auto;
+  margin-top: 25%;
+  left: 562px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #8E8E8E;
 
+`
 const CsPayment = styled.div`
   //border : 1px solid black;
   *{

@@ -5,7 +5,7 @@ import api from './api';
         headers: {
           Authorization: `Bearer ${token}`,
         }})
-    return result
+    return result.data
 
 }   
 
