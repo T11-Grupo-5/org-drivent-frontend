@@ -193,6 +193,9 @@ const CsPayment = styled.div`
       font-size: 20px;
       font-weight: 40px;
     }
+    :hover{
+        cursor: pointer;
+    }
   }
   .options{
     display: flex;
