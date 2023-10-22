@@ -86,17 +86,17 @@ export function CardZone() {
 
 const CsCardZone = styled.div`
     display: flex;
-    justify-content: space-between;
     //align-items: center;
 
-    width:80%;
-    height: 225px;
-    padding: 5%;
     .inputs{
         display:flex;
         flex-direction: column;
         justify-content: space-between;
         gap: auto;
+        input{
+            border-radius: 6px;
+        }
+        
     }
     .part{
         width: 47%;
@@ -110,7 +110,6 @@ const CsCardZone = styled.div`
     .dateAndCvc{
         display: flex;
         justify-content: space-between;
-
         .date{
             width: 65%;
         }
@@ -119,4 +118,9 @@ const CsCardZone = styled.div`
         }
     }
     margin-bottom: 20px;
+
+    .exampleCard{
+        width: inherit;
+        margin-right: 40px;
+    }
 `;

@@ -26,14 +26,12 @@ export function CardContainer(ticket) {
 }
 
 const CsCardContainer = styled.div`
-    border: 1px solid red;
-    *{
-        border: 1px solid red;
-    }
+
     .content{
         width: 290px;
         height: 108px;
-
+        border-radius: 20px;
+        background-color: #FFEED2;
         display: flex;
         flex-direction: column;
         justify-content: center;
