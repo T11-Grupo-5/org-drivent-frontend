@@ -94,18 +94,21 @@ export default function ChoiceHotel() {
 
             const processedData = await Promise.all(hotels.map(async h => {
                 let vacancy = 0;
+                let bookings = [];
 
                 const response = await Promise.all(h.Rooms.map(async r => {
                     vacancy += r.capacity;
                     try {
                         const response = await getBookingsByRoomId(r.id, token);
                         vacancy -= response.length;
+                        bookings.push(...response);
                     } catch (err) {
                         console.error(err);
                     }
                 }));
                 
                 h.vacancy = vacancy;
+                h.bookings = bookings;
                 return h
             }));
 
@@ -127,6 +130,7 @@ export default function ChoiceHotel() {
                         image={e.image}
                         acomodationTypes={e.acomodationTypes}
                         vacancy={e.vacancy}
+                        hotel={e}
                     />)
                 }
             </div>
@@ -135,10 +139,7 @@ export default function ChoiceHotel() {
 }
 
 const CsChoiceHotel = styled.div`
-    border: 1px solid;
-    *{
-        border: 1px solid;
-    }
+    margin-top: 35px;
 
     h1 {
         font-family: 'Roboto';
@@ -148,8 +149,9 @@ const CsChoiceHotel = styled.div`
     }
 
     .hotels{
+        margin-top: 20px;
         display: flex;
         flex-wrap: wrap;
+        gap: 19px;
     }
-
 `;

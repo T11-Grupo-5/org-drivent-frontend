@@ -9,7 +9,7 @@ export default function Hotel() {
     <CsHotel>
       <h1>Escolha de hotel e quarto</h1>
       <ChoiceStage />
-      <MaybeChange />
+      {/* <MaybeChange /> */}
     </CsHotel>
   );
 }
