@@ -10,7 +10,6 @@ import EventInfoContext from '../../contexts/EventInfoContext';
 
 export default function Countdown() {
   const { eventInfo, loadingEventInfo } = useContext(EventInfoContext);
-
   const navigate = useNavigate();
   const countdownOver = useIsDateAfter(eventInfo?.startsAt);
 

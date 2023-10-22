@@ -1,26 +1,26 @@
 import { styled } from "styled-components";
 import { CardZone } from "./Cardzone";
-import { ConfirmationNotice } from "./ConfirmationNotice";
 
 
-export function CardContainer() {
+export function CardContainer(ticket) {
+    console.log(ticket.ticket.name)
     return (
         <CsCardContainer>
+            <h1>Ingresso e pagamento</h1>
             <div className="container">
                 <h5>Ingresso escolhido</h5>
-                <div className="content bege">
-                    <p className="negrito">Presencial + Com Hotel</p>
-                    <p>R$ 600</p>
+                <div className="content">
+                    <p className="negrito">{ticket.ticket.name}{ticket.ticket.includesHotel === true? ' + Com Hotel':''}</p>
+                    <p>R$ {ticket.ticket.price}</p>
                 </div>
             </div>
-            <form className="container">
+            <div className="container">
                 <h5>Pagamento</h5>
-                <CardZone />
-                <button>FINALIZAR PAGAMENTO</button>
-            </form>
-
-
-            <ConfirmationNotice />
+                <CardZone/>
+                
+            </div>
+            
+            <button>FINALIZAR PAGAMENTO</button>
         </CsCardContainer>
     );
 }
