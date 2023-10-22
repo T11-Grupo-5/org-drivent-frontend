@@ -15,5 +15,10 @@ export default function Hotel() {
 }
 
 const CsHotel = styled.div`
-
+  & > h1 {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 34px;
+    color: #000000;
+  }
 `;
