@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { CardZone } from "./Cardzone";
-import { ConfirmationNotice } from "./ConfirmationNotice";
 
 
 export function CardContainer(ticket) {
@@ -26,19 +25,39 @@ export function CardContainer(ticket) {
     );
 }
 
-// componente de compra de ticket confirmado <ConfirmationNotice/>
-
 const CsCardContainer = styled.div`
-   
-    
+    border: 1px solid red;
+    *{
+        border: 1px solid red;
+    }
     .content{
         width: 290px;
         height: 108px;
-        border-radius: 20px;
-        background-color: #FFEED2;
+
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .bege{
+        background-color: #FFEED2;
+        border-radius: 20px;
+    }
+    p{
+        color: #898989;
+    }
+    .negrito{
+        color: #454545;
+        font-weight: bold;
+    }
+    button{
+        background-color: #E0E0E0;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #000000;
     }
 `;

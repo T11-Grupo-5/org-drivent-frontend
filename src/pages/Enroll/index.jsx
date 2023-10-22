@@ -22,7 +22,11 @@ export default function Enroll() {
 
   const navigate = useNavigate();
   
-  const { eventInfo } = useContext(EventInfoContext);
+  // const { eventInfo } = useContext(EventInfoContext);
+  const eventInfo = {
+    startsAt: new Date(),
+    backgroundImageUrl: "https://uploads-ssl.webflow.com/62235d098ddf9185c2d74422/62312861b7215976fd2e9206_6225033beddd3880a656f56a_1DRIVEN_3d.jpg",
+  }
 
   async function submit(event) {
     event.preventDefault();
