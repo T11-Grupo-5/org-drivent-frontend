@@ -4,9 +4,11 @@ import { ticketServices } from "../../../services/ticketsApi";
 import UserContext from "../../../contexts/UserContext";
 import { CardContainer } from '../../../components/Payment/cardStage';
 import { getPersonalInformations } from "../../../services/enrollmentApi";
+import { TicketContext } from "../../../contexts/TicketContext";
 
 export default function Payment() {
   const { userData } = useContext(UserContext);
+  const { setTicketId } = useContext(TicketContext);
   const [tickets, setTickets] = useState([])
   const [ticketstype, setTicketType] = useState('')
   const [ticketsReserved, setTicketsReserved] = useState([])
@@ -15,6 +17,7 @@ export default function Payment() {
   const [corSelect, setcorSelect] = useState('')
   const [reserved, setReserved] = useState(false)
   const [enrrolment, setEnrrolment] = useState(false)
+  
   
   useEffect(()=>{
     async function requests(){
@@ -97,7 +100,8 @@ export default function Payment() {
     )
     
   }
-  function toReserve(price){
+
+  async function toReserve(price){
     console.log(price)
     setReserved(true)
     const ticket = tickets.filter((ticket) => {
@@ -106,13 +110,15 @@ export default function Payment() {
     console.log(ticket)
     console.log(tickets)
     setTicketsReserved(ticket[0])
+    setTicketId(await ticketServices.createTicket(userData.token, ticket[0].id));
+    console.log(ticket[0])
     //alert('ticket Reservado')
-    }
+  }
   
   return (
     <CsPayment>
       {reserved === true? (
-        enrrolment === false? ( <CardContainer ticket={ticketsReserved}/>) : 
+        enrrolment === false? ( <CardContainer ticket={ticketsReserved} />) : 
         (
         <>
         <h1>Ingresso e pagamento</h1>

@@ -5,24 +5,27 @@ import { PaymentContext } from "../../contexts/PaymentContext";
 import { set } from "date-fns";
 import useSavePayment from "../../hooks/api/useSavePayment";
 import { ConfirmationNotice } from "./ConfirmationNotice";
+import { TicketContext } from "../../contexts/TicketContext";
 
 
 export function CardContainer(ticket) {
     const { paymentData, setPaymentData } = useContext(PaymentContext);
     const { savePaymentLoading, savePayment } = useSavePayment();
+    const { ticketId } = useContext(TicketContext)
 
     async function setPayment() {
-        console.log(paymentData)
+        console.log(paymentData);
+        delete (paymentData.status)
         try {
             await savePayment(paymentData);
             setPaymentData((prevData) => ({
                 ...prevData,
                 status: 'PAID',
             }));
-          } catch (err) {
+        } catch (err) {
             console.log(err.response.data.message)
             toast('Não foi possível realizar o pagamento!');
-          }
+        }
         //   setPaymentData((prevData) => ({
         //     ...prevData,
         //     status: 'PAID',
@@ -30,19 +33,22 @@ export function CardContainer(ticket) {
     }
 
     useEffect(() => {
-        setPaymentData((prevData) => ({
-            ...prevData,
-            ticketId: ticket.ticket.id,
-        }));
+        console.log('ticket', ticketId)
+        if (ticketId) {
+            setPaymentData((prevData) => ({
+                ...prevData,
+                ticketId: ticketId.id,
+            }));
+        }
     }
-        , [])
+        , [ticketId])
     return (
         <CsCardContainer>
             <h1>Ingresso e pagamento</h1>
             <div className="container">
                 <h5>Ingresso escolhido</h5>
                 <div className="content">
-                    <p className="negrito">{ticket.ticket.name}{ticket.ticket.includesHotel === true? ' + Com Hotel':''}</p>
+                    <p className="negrito">{ticket.ticket.name}{ticket.ticket.includesHotel === true ? ' + Com Hotel' : ''}</p>
                     <p>R$ {ticket.ticket.price}</p>
                 </div>
             </div>
@@ -52,13 +58,13 @@ export function CardContainer(ticket) {
                     <ConfirmationNotice />
                 ) : (
                     <>
-                    <CardZone />
-                    <button className="payment" onClick={()=>setPayment()}>FINALIZAR PAGAMENTO</button>
+                        <CardZone />
+                        <button className="payment" onClick={() => setPayment()}>FINALIZAR PAGAMENTO</button>
                     </>
                 )}
-                
+
             </div>
-            
+
         </CsCardContainer>
     );
 }
