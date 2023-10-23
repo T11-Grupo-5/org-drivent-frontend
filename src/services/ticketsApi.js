@@ -1,6 +1,6 @@
 import api from './api';
 
- async function geTickets(token){
+ async function getTickets(token){
     const result = await api.get('/tickets/types', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -10,4 +10,4 @@ import api from './api';
 }   
 
 
-export const ticketServices = {geTickets};
+export const ticketServices = {getTickets};

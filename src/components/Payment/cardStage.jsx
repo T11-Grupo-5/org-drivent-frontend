@@ -1,9 +1,33 @@
 import { styled } from "styled-components";
 import { CardZone } from "./Cardzone";
+import { useContext, useEffect, useState } from "react";
+import { PaymentContext } from "../../contexts/PaymentContext";
+import { set } from "date-fns";
+import useSavePayment from "../../hooks/api/useSavePayment";
 
 
 export function CardContainer(ticket) {
-    console.log(ticket.ticket.name)
+    const { paymentData, setPaymentData } = useContext(PaymentContext);
+    const { savePaymentLoading, savePayment } = useSavePayment();
+
+    async function setPayment() {
+        console.log(paymentData)
+        try {
+            await savePayment(paymentData);
+          } catch (err) {
+            console.log(err.response.data.message)
+            toast('Não foi possível realizar o pagamento!');
+          }
+        
+    }
+
+    useEffect(() => {
+        setPaymentData((prevData) => ({
+            ...prevData,
+            ticketId: ticket.ticket.id,
+        }));
+    }
+        , [])
     return (
         <CsCardContainer>
             <h1>Ingresso e pagamento</h1>
@@ -20,7 +44,7 @@ export function CardContainer(ticket) {
                 
             </div>
             
-            <button>FINALIZAR PAGAMENTO</button>
+            <button onClick={()=>setPayment()}>FINALIZAR PAGAMENTO</button>
         </CsCardContainer>
     );
 }
@@ -48,14 +72,19 @@ const CsCardContainer = styled.div`
         color: #454545;
         font-weight: bold;
     }
-    button{
-        background-color: #E0E0E0;
-        font-family: Roboto;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 16px;
-        letter-spacing: 0em;
-        text-align: center;
-        color: #000000;
+    button {
+    background-color: #E0E0E0;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #000000;
+    width: auto;
+    }
+
+    button:hover {
+        cursor: pointer;
     }
 `;
