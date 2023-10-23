@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { PaymentContext } from "../../contexts/PaymentContext";
 import { set } from "date-fns";
 import useSavePayment from "../../hooks/api/useSavePayment";
+import { ConfirmationNotice } from "./ConfirmationNotice";
 
 
 export function CardContainer(ticket) {
@@ -14,11 +15,18 @@ export function CardContainer(ticket) {
         console.log(paymentData)
         try {
             await savePayment(paymentData);
+            setPaymentData((prevData) => ({
+                ...prevData,
+                status: 'PAID',
+            }));
           } catch (err) {
             console.log(err.response.data.message)
             toast('Não foi possível realizar o pagamento!');
           }
-        
+        //   setPaymentData((prevData) => ({
+        //     ...prevData,
+        //     status: 'PAID',
+        // }));
     }
 
     useEffect(() => {
@@ -40,11 +48,17 @@ export function CardContainer(ticket) {
             </div>
             <div className="container">
                 <h5>Pagamento</h5>
-                <CardZone/>
+                {paymentData.status === 'PAID' ? (
+                    <ConfirmationNotice />
+                ) : (
+                    <>
+                    <CardZone />
+                    <button className="payment" onClick={()=>setPayment()}>FINALIZAR PAGAMENTO</button>
+                    </>
+                )}
                 
             </div>
             
-            <button onClick={()=>setPayment()}>FINALIZAR PAGAMENTO</button>
         </CsCardContainer>
     );
 }
@@ -72,7 +86,7 @@ const CsCardContainer = styled.div`
         color: #454545;
         font-weight: bold;
     }
-    button {
+    .payment {
     background-color: #E0E0E0;
     font-family: Roboto;
     font-size: 14px;
@@ -81,7 +95,8 @@ const CsCardContainer = styled.div`
     letter-spacing: 0em;
     text-align: center;
     color: #000000;
-    width: auto;
+    width: max-content;
+    height: 37px;
     }
 
     button:hover {

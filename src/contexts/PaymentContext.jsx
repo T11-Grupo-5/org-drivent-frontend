@@ -12,6 +12,7 @@ export function PaymentProvider({ children }) {
             expirationDate: '',
             cvv: '',
         },
+        status: 'PENDING',
     });
 
     return (
