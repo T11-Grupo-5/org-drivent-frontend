@@ -1,9 +1,41 @@
 import { styled } from "styled-components";
 import { CardZone } from "./Cardzone";
+import { useContext, useEffect, useState } from "react";
+import { PaymentContext } from "../../contexts/PaymentContext";
+import { set } from "date-fns";
+import useSavePayment from "../../hooks/api/useSavePayment";
+import { ConfirmationNotice } from "./ConfirmationNotice";
 
 
 export function CardContainer(ticket) {
-    console.log(ticket.ticket.name)
+    const { paymentData, setPaymentData } = useContext(PaymentContext);
+    const { savePaymentLoading, savePayment } = useSavePayment();
+
+    async function setPayment() {
+        console.log(paymentData)
+        try {
+            await savePayment(paymentData);
+            setPaymentData((prevData) => ({
+                ...prevData,
+                status: 'PAID',
+            }));
+          } catch (err) {
+            console.log(err.response.data.message)
+            toast('Não foi possível realizar o pagamento!');
+          }
+        //   setPaymentData((prevData) => ({
+        //     ...prevData,
+        //     status: 'PAID',
+        // }));
+    }
+
+    useEffect(() => {
+        setPaymentData((prevData) => ({
+            ...prevData,
+            ticketId: ticket.ticket.id,
+        }));
+    }
+        , [])
     return (
         <CsCardContainer>
             <h1>Ingresso e pagamento</h1>
@@ -16,11 +48,17 @@ export function CardContainer(ticket) {
             </div>
             <div className="container">
                 <h5>Pagamento</h5>
-                <CardZone/>
+                {paymentData.status === 'PAID' ? (
+                    <ConfirmationNotice />
+                ) : (
+                    <>
+                    <CardZone />
+                    <button className="payment" onClick={()=>setPayment()}>FINALIZAR PAGAMENTO</button>
+                    </>
+                )}
                 
             </div>
             
-            <button>FINALIZAR PAGAMENTO</button>
         </CsCardContainer>
     );
 }
@@ -48,14 +86,20 @@ const CsCardContainer = styled.div`
         color: #454545;
         font-weight: bold;
     }
-    button{
-        background-color: #E0E0E0;
-        font-family: Roboto;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 16px;
-        letter-spacing: 0em;
-        text-align: center;
-        color: #000000;
+    .payment {
+    background-color: #E0E0E0;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #000000;
+    width: max-content;
+    height: 37px;
+    }
+
+    button:hover {
+        cursor: pointer;
     }
 `;

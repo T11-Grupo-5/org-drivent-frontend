@@ -5,8 +5,6 @@ import UserContext from "../../../contexts/UserContext";
 import { CardContainer } from '../../../components/Payment/cardStage';
 import { getPersonalInformations } from "../../../services/enrollmentApi";
 
-
-
 export default function Payment() {
   const { userData } = useContext(UserContext);
   const [tickets, setTickets] = useState([])
@@ -23,7 +21,7 @@ export default function Payment() {
       try {
         const checkEnrrolment = await getPersonalInformations(userData.token)
         console.log(checkEnrrolment)
-        const promise = await ticketServices.geTickets(userData.token)
+        const promise = await ticketServices.getTickets(userData.token)
         setTickets(promise)
         
       } catch (error) {

@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
-import Cards from 'react-credit-cards-2';
+import Cards  from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
-
-
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { PaymentContext } from "../../contexts/PaymentContext";
+import { set } from "date-fns";
 
 export function CardZone() {
-
+    
+    const { setPaymentData } = useContext(PaymentContext);
     const [state, setState] = useState({
         number: '',
         expiry: '',
@@ -14,15 +15,34 @@ export function CardZone() {
         name: '',
         focus: '',
     });
+    let cardIssuer = 'Desconhecido';
+    
 
     const handleInputChange = (evt) => {
         const { name, value } = evt.target;
-
+        
         setState((prev) => ({ ...prev, [name]: value }));
+
+        const newCardData = {
+            issuer: cardIssuer,
+            number: state.number,
+            name: state.name,
+            expirationDate: state.expiry,
+            cvv: state.cvc,
+        }
+
+        setPaymentData((prevData) => ({
+            ...prevData,
+            cardData : newCardData,
+        }));
     }
 
     const handleInputFocus = (evt) => {
         setState((prev) => ({ ...prev, focus: evt.target.name }));
+    }
+
+    const setIssuer = (type) => {
+        cardIssuer = type.issuer;
     }
 
     return (
@@ -35,6 +55,7 @@ export function CardZone() {
                     cvc={state.cvc}
                     name={state.name}
                     focused={state.focus}
+                    callback={(type) => setIssuer(type)}
                 />
             </div>
             <div className="inputs part">
