@@ -18,4 +18,7 @@ const CsDay = styled.div`
     height: 37px;
 
     margin: 0.5%;
+
+    background-color: #E0E0E0;
+    border-radius: 4px;
 `;

@@ -12,4 +12,5 @@ export default function Days() {
 
 const CsDays = styled.div`
     display: flex;
+    margin-bottom: 20px;
 `;

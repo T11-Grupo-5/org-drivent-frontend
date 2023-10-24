@@ -23,9 +23,9 @@ const CsActivities = styled.div`
     width: 100%;
     height: 100%;
 
-  *{
+  /* *{
     border: 1px solid;
-  }
+  } */
   h1{
     font-family: Roboto;
     font-size: 34px;
