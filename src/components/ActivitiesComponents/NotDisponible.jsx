@@ -1,11 +1,15 @@
 import { styled } from "styled-components";
+import ChooseActivitie from "./ChooseActivitie";
 
 export default function NotDisponible() {
   return (
-    <CsNotDisponible>
-        Você precisa ter confirmado pagamento antes <br /> 
+    <>
+      <ChooseActivitie/>
+      <CsNotDisponible>
+        Você precisa ter confirmado pagamento antes <br />
         de fazer a escolha de atividades
-    </CsNotDisponible>
+      </CsNotDisponible>
+    </>
   );
 }
 
