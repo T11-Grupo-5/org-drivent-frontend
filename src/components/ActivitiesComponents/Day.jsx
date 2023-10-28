@@ -1,9 +1,13 @@
 import { styled } from "styled-components";
 
-export default function Day() {
+export default function Day(day) {
+  function getActivities() {
+    console.log(day.day)
+  }
+
   return (
-    <CsDay>
-        Sexta, 22/10
+    <CsDay onClick={getActivities}>
+        {day.day}
     </CsDay>
   );
 }

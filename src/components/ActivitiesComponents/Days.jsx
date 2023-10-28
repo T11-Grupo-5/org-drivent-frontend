@@ -1,11 +1,17 @@
 import { styled } from "styled-components";
 import Day from "./Day";
+import { useContext } from "react";
+import { ActivityContext } from "../../contexts/ActivitiesContext";
+
 export default function Days() {
+  const { days } = useContext(ActivityContext);
+
   return (
+    
     <CsDays>
-        <Day/>
-        <Day/>
-        <Day/>
+      {
+        days.map(day => <Day key={day.index} day={day} />)
+      }
     </CsDays>
   );
 }

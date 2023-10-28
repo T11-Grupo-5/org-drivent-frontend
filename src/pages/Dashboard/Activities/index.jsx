@@ -6,9 +6,11 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../contexts/UserContext";
 import { ticketServices } from "../../../services/ticketsApi";
 import ActivitiesContainer from "../../../components/ActivitiesComponents/ActivitiesContainer";
+import { ActivityContext } from "../../../contexts/ActivitiesContext";
 
 export default function Activities() {
   const { userData } = useContext(UserContext);
+  const { day, days, setDay, setDays } = useContext(ActivityContext);
   const [ticket, setTicket] = useState();
   const [ticketStatus, setTicketStatus] = useState()
   const [isRemote, setIsRemote] = useState()
@@ -36,7 +38,7 @@ export default function Activities() {
           isRemote ? <AllIncluded /> :
             <CsActivities>
               <h1>Escolha de Atividades</h1>
-              <AvailableActivities/>
+              <AvailableActivities />
             </CsActivities>
         )
       }
