@@ -19,10 +19,11 @@ export default function UnitActivitie(props) {
 
 
   const semIdeia = new Date(activities.startTime)
-  console.log(activities.startTime)
-  console.log(semIdeia)
+  console.log(activities.startTime, 'do jeito que vem do banco')
+  console.log(semIdeia, 'da forma com o Date transforma')
   console.log(semIdeia.getHours())
-  
+  const formatoBR = new Intl.DateTimeFormat('pt-BR');
+  console.log(formatoBR.format(semIdeia));
 
   function teste() {
     //console.log(activities)
