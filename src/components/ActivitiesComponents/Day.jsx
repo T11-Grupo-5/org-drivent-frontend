@@ -1,9 +1,20 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 
-export default function Day() {
+export default function Day(props) {
+  const { day, handleButtonClick, index, activeButton } = props;
+
+  function getActivities() {
+    console.log(day)
+    handleButtonClick(index)
+  }
+
   return (
-    <CsDay>
-        Sexta, 22/10
+    <CsDay 
+      onClick={getActivities} 
+      selected={ activeButton === index ? '#FFD37D' : '#E0E0E0'}
+    >
+      {day}
     </CsDay>
   );
 }
@@ -13,12 +24,10 @@ const CsDay = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-
     width: 131px;
     height: 37px;
-
     margin: 0.5%;
-
-    background-color: #E0E0E0;
+    background-color: ${(p) => p.selected};
     border-radius: 4px;
+    cursor: pointer;
 `;

@@ -1,75 +1,64 @@
 import { styled } from 'styled-components';
+import StatusActivitie from './StatusActivitie';
+import { useContext } from 'react';
+import { ActivityContext } from '../../contexts/ActivitiesContext';
+import dayjs from 'dayjs';
 
-export default function UnitActivitie() {
-  const EXAMPLE_STATUS = 'registered'; //available, unavailable, registered
-  const EXAMPLE_AMOUNT_VACANCY = 27;
+
+
+export default function UnitActivitie(props) {
+  const { activities } = props;
+  //console.log(activities)
+  const qtdHoras = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
+
+  //OBSERVAR A VARIAVEL "statusActivitie"  
+  //E OS VALORES STRINGS 
+  //QUE ELA ESTA PREPARADA PARA RECEBER!!
+  const statusActivitie = 'available'; //available, unavailable, registered
+  const amountVacancy = 27;
+
+
+  const semIdeia = new Date(activities.startTime)
+  console.log(activities.startTime, 'do jeito que vem do banco')
+  console.log(semIdeia, 'da forma com o Date transforma')
+  console.log(semIdeia.getHours())
+  const formatoBR = new Intl.DateTimeFormat('pt-BR');
+  console.log(formatoBR.format(semIdeia));
+
+  function teste() {
+    //console.log(activities)
+    //console.log(dayjs(activities.startTime).locale('pt-BR').toISOString().slice(11, 16))
+    console.log(dayjs(activities.startTime).locale('pt-BR'))
+  }
 
   return (
-    <CsUnitActivitie
-      backgroundColor={EXAMPLE_STATUS === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
-      borderColor={EXAMPLE_STATUS === 'available' ? '#99E8A1' : '#CFCFCF'}
-      textColor={EXAMPLE_STATUS === 'unavailable' ? '#CC6666' : '#078632'}
+    <CsUnitActivitie onClick={() => teste()}
+      backgroundColor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
+      qtdHoras={qtdHoras}
     >
-      <div className="contentUnit side">
-        <div className="titleActivitie">Minecraft: montando o PC ideal</div>
-        <div className="timeActivitie">09:00 - 10:00</div>
+      <div className="contentUnit">
+        <div className="titleActivitie">{activities.name}</div>
+        <div className="timeActivitie">{dayjs(activities.startTime).toISOString().slice(11, 16)} - {dayjs(activities.endTime).toISOString().slice(11, 16)}</div>
       </div>
-      <div className="statusActivitie side">
-        <div className="iconStatus">
-          {EXAMPLE_STATUS === 'unavailable' ? (
-            <ion-icon name="close-circle-outline"></ion-icon>
-          ) : EXAMPLE_STATUS === 'available' ? (
-            <ion-icon name="enter-outline"></ion-icon>
-          ) : EXAMPLE_STATUS === 'registered' ? (
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
-          ) : (
-            'STATUS_ERROR'
-          )}
-        </div>
-        <div className="nameStatus">
-          {EXAMPLE_STATUS === 'unavailable'
-            ? 'Esgotado'
-            : EXAMPLE_STATUS === 'available'
-            ? `${EXAMPLE_AMOUNT_VACANCY} vagas`
-            : EXAMPLE_STATUS === 'registered'
-            ? 'Inscrito'
-            : 'STATUS_ERROR'}
-        </div>
-      </div>
+      <StatusActivitie
+        statusActivitie={statusActivitie}
+        amountVacancy={amountVacancy}
+      />
     </CsUnitActivitie>
   );
 }
 
 const CsUnitActivitie = styled.div`
   width: 100%;
-  height: 60px;
+  height: calc(1.33px * ${(p) => p.qtdHoras});
   padding: 6px;
   border-radius: 5px;
-
   background-color: ${(p) => p.backgroundColor};
-
   display: flex;
-
   font-size: 12px;
-
+  margin-bottom: 10px;
   .contentUnit {
-    width: 75%;
-  }
-  .statusActivitie {
-    width: 25%;
-    border-left: 1px solid ${(p) => p.borderColor};
-
-    color: ${(p) => p.textColor};
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .side {
     height: 100%;
-  }
-  .iconStatus {
-    font-size: 18px;
+    width: 75%;
   }
 `;

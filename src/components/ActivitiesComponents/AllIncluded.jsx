@@ -1,11 +1,15 @@
 import { styled } from "styled-components";
+import ChooseActivitie from "./ChooseActivitie";
 
 export default function AllIncluded() {
   return (
-    <CsAllIncluded>
+    <>
+      <ChooseActivitie/>
+      <CsAllIncluded>
         Sua modalidade de ingresso não necessita escolher <br />
         atividade. Você terá acesso a todas as atividades.
-    </CsAllIncluded>
+      </CsAllIncluded>
+    </>
   );
 }
 
