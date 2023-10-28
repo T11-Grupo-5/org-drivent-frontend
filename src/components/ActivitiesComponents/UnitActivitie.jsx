@@ -1,10 +1,13 @@
 import { styled } from 'styled-components';
 
 import StatusActivitie from './StatusActivitie';
+import { useContext } from 'react';
+import { ActivityContext } from '../../contexts/ActivitiesContext';
 
 
 
 export default function UnitActivitie() {
+  const { day } = useContext(ActivityContext);
 
   //OBSERVAR A VARIAVEL "statusActivitie"  
   //E OS VALORES STRINGS 
@@ -17,7 +20,7 @@ export default function UnitActivitie() {
       backgroundColor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF      
     >
       <div className="contentUnit">
-        <div className="titleActivitie">Minecraft: montando o PC ideal</div>
+        <div className="titleActivitie">TESTE: montando o PC ideal</div>
         <div className="timeActivitie">09:00 - 10:00</div>
       </div>
       <StatusActivitie

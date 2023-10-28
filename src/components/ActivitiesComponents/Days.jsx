@@ -10,7 +10,7 @@ export default function Days() {
     
     <CsDays>
       {
-        days.map(day => <Day key={day.index} day={day} />)
+        days.map((day, index) => <Day key={index} day={day} />)
       }
     </CsDays>
   );

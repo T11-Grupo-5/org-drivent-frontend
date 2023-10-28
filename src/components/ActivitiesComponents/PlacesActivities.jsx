@@ -1,27 +1,20 @@
 import { styled } from "styled-components";
 import MoldPlaces from "./MoldPlaces";
+import { useState } from "react";
 
 export default function PlacesActivities() {
 
-    const place1 = 'Auditório Principal';
-    const place2 = 'Auditório Lateral';
-    const place3 = 'Sala de Workshop';
+    /* const [places, setPlaces] = useState(['Auditório Principal', 'Auditório Lateral', 'Sala de Workshop']);
 
-  return (
-    <CsPlacesActivities>
-        
-        <MoldPlaces
-            placeName ={place1}
-        />
-        <MoldPlaces
-            placeName ={place2}
-        />
-        <MoldPlaces
-            placeName ={place3}
-        />
-
-    </CsPlacesActivities>
-  );
+    return (
+        <CsPlacesActivities>
+            {
+                places.map((place, index) => {
+                    <MoldPlaces key={index} placeName={place} />
+                })
+            }
+        </CsPlacesActivities>
+    ); */
 }
 
 const CsPlacesActivities = styled.div`
