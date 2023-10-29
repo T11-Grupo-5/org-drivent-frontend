@@ -7,25 +7,5 @@ export async function getHallsByDayId(token, dayId) {
     },
   });
 
-
   return response.data;
 }
-
-/* async function createTicket(token, ticketTypeId) {
-  const result = await api.post('/tickets', {ticketTypeId}, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    }
-  })
-  return result.data
-}
-
-async function getUserTicket(token) {
-  const result = await api.get('/tickets', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    }
-  })
-  return result.data
-} */
-

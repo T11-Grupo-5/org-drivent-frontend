@@ -1,32 +1,35 @@
-import { styled } from "styled-components";
-import MoldPlaces from "./MoldPlaces";
-import { useContext, useEffect, useState } from "react";
-import { ActivityContext } from "../../contexts/ActivitiesContext";
-import useHall from "../../hooks/api/useActivity";
+import { styled } from 'styled-components';
+import MoldPlaces from './MoldPlaces';
+import { useEffect, useState } from 'react';
+
+import useHall from '../../hooks/api/useActivity';
 
 export default function PlacesActivities() {
+  const [halls, setHalls] = useState([]);
 
-    const { days } = useContext(ActivityContext);
-    const { hall, hallLoading, hallError } = useHall(days[0].id);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const hallData = await useHall(1);
+        setHalls(hallData);
+        console.log(hallData);
+      } catch (error) {
+        console.error('Erro ao buscar os locais (halls):', error);
+      }
+    }
 
-    useEffect(()=>{
-    },[])
+    fetchData();
+  }, []);
 
-    return (
-        <CsPlacesActivities>
-            {
-                hall.map((h, index) =><MoldPlaces 
-                                              key={index} 
-                                              placeName={h.name} 
-                                              activities={h.activities}
-                                            />
-                )
-            }
-        </CsPlacesActivities>
-    );
+  return (
+    <CsPlacesActivities>
+      {halls.map((hall, index) => (
+        <MoldPlaces key={index} placeName={hall.name} activities={hall.activities} />
+      ))}
+    </CsPlacesActivities>
+  );
 }
 
 const CsPlacesActivities = styled.div`
-    display: flex;
-    //border-bottom: 5px solid red;
+  display: flex;
 `;
