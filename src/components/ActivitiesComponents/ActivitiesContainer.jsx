@@ -7,10 +7,13 @@ export default function ActivitiesContainer(props) {
 
   const { activities } = props;
 
+
+  if(!activities)return ''
   return (
     <CsActivitiesContainer>
-      <UnitActivitie activities={activities}/>
-      <UnitActivitie activities={activities}/>
+
+      {activities.map(atv =><UnitActivitie activities={atv}/>)}
+      
     </CsActivitiesContainer>
   );
 }

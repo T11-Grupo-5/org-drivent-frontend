@@ -9,7 +9,18 @@ import dayjs from 'dayjs';
 export default function UnitActivitie(props) {
   const { activities } = props;
   //console.log(activities)
-  const qtdHoras = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
+  
+  const lengthDiv = () =>{
+    const miliSecondForMinute = 60000;
+    const spaceBetween = 10
+    const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForMinute;
+    const qntHalfHours = Math.ceil(qtdMinutes/30)
+    const sumLengthSpaces = qntHalfHours*35
+    const sumlLengthSpaceBetween = (qntHalfHours-1)*spaceBetween
+    const tamanhoDiv = sumLengthSpaces + sumlLengthSpaceBetween
+    return tamanhoDiv;
+  }
+
 
   //OBSERVAR A VARIAVEL "statusActivitie"  
   //E OS VALORES STRINGS 
@@ -18,12 +29,6 @@ export default function UnitActivitie(props) {
   const amountVacancy = 27;
 
 
-  const semIdeia = new Date(activities.startTime)
-  console.log(activities.startTime, 'do jeito que vem do banco')
-  console.log(semIdeia, 'da forma com o Date transforma')
-  console.log(semIdeia.getHours())
-  const formatoBR = new Intl.DateTimeFormat('pt-BR');
-  console.log(formatoBR.format(semIdeia));
 
   function teste() {
     //console.log(activities)
@@ -34,7 +39,7 @@ export default function UnitActivitie(props) {
   return (
     <CsUnitActivitie onClick={() => teste()}
       backgroundColor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
-      qtdHoras={qtdHoras}
+      lengthDiv={lengthDiv}
     >
       <div className="contentUnit">
         <div className="titleActivitie">{activities.name}</div>
@@ -50,7 +55,7 @@ export default function UnitActivitie(props) {
 
 const CsUnitActivitie = styled.div`
   width: 100%;
-  height: calc(1.33px * ${(p) => p.qtdHoras});
+  height: ${(p) => p.lengthDiv}px;
   padding: 6px;
   border-radius: 5px;
   background-color: ${(p) => p.backgroundColor};

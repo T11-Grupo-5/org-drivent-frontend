@@ -5,11 +5,13 @@ import ActivitiesContainer from "./ActivitiesContainer";
 
 export default function MoldPlaces(props) {
     const {placeName, activities} = props;
-
+    
   return (
     <CsMoldPlaces>
         <h3>{placeName}</h3>
-        <ActivitiesContainer activities={activities}/>
+        <ActivitiesContainer 
+          activities={activities}
+        />
     </CsMoldPlaces>
   );
 }
@@ -19,4 +21,7 @@ const CsMoldPlaces = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    h3{
+      margin-bottom: 10px;
+    }
 `;
