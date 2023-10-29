@@ -12,16 +12,15 @@ export default function UnitActivitie(props) {
   
   const lengthDiv = () =>{
     const miliSecondForSecond = 60000;
+    const spaceBetween = 10
     const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForSecond;
-    const HalfHours = Math.ceil(qtdMinutes/30)
-    let lengthDiv = HalfHours*40
-    if(HalfHours>2){
-      const qntSpaces = HalfHours-2;
-      lengthDiv += qntSpaces*5;
-      return lengthDiv;
-    }
-    return lengthDiv
+    const qntHalfHours = Math.ceil(qtdMinutes/30)
+    const sumLengthSpaces = qntHalfHours*35
+    const sumlLengthSpaceBetween = (qntHalfHours-1)*spaceBetween
+    const tamanhoDiv = sumLengthSpaces + sumlLengthSpaceBetween
+    return tamanhoDiv;
   }
+
 
   //OBSERVAR A VARIAVEL "statusActivitie"  
   //E OS VALORES STRINGS 
