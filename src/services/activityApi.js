@@ -1,12 +1,14 @@
 import api from './api';
 
-async function getActivities(token) {
-  const result = await api.get('/tickets/types', {
+export async function getHallsByDayId(token, dayId) {
+  const response = await api.get(`/activity/halls/${dayId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
-    }
-  })
-  return result.data
+    },
+  });
+
+
+  return response.data;
 }
 
 /* async function createTicket(token, ticketTypeId) {
@@ -27,5 +29,3 @@ async function getUserTicket(token) {
   return result.data
 } */
 
-
-export const activitiesServices = { getActivities };
