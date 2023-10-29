@@ -19,4 +19,7 @@ const CsMoldPlaces = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    h3{
+      margin-bottom: 10px;
+    }
 `;

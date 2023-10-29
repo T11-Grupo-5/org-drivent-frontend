@@ -14,4 +14,3 @@ export function ActivityProvider({ children }) {
     </ActivityContext.Provider>
   );
 }
-

@@ -33,6 +33,5 @@ export default function PlacesActivities() {
 }
 
 const CsPlacesActivities = styled.div`
-    display: flex;
-    //border-bottom: 5px solid red;
+  display: flex;
 `;

@@ -27,14 +27,14 @@ export default function Day(props) {
 }
 
 const CsDay = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    width: 131px;
-    height: 37px;
-    margin: 0.5%;
-    background-color: ${(p) => p.selected};
-    border-radius: 4px;
-    cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 131px;
+  height: 37px;
+  margin: 0.5%;
+  background-color: ${(p) => p.selected};
+  border-radius: 4px;
+  cursor: pointer;
 `;

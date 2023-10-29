@@ -9,6 +9,19 @@ export default function UnitActivitie(props) {
   const { userData } = useContext(UserContext);
   const [statusActivitie, setStatusActivitie] = useState(); //available, unavailable, registered
   const [amountVacancy, setAmountVacancy] = useState()
+  //console.log(activities)
+  
+  const lengthdiv = () =>{
+    const miliSecondForMinute = 60000;
+    const spaceBetween = 10
+    const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForMinute;
+    const qntHalfHours = Math.ceil(qtdMinutes/30)
+    const sumLengthSpaces = qntHalfHours*35
+    const sumlLengthSpaceBetween = (qntHalfHours-1)*spaceBetween
+    const tamanhoDiv = sumLengthSpaces + sumlLengthSpaceBetween
+    return tamanhoDiv;
+  }
+
 
   useEffect(() => {
     if (activities.Users.filter(elem => elem.id === userData.user.id).length > 0) {
@@ -22,12 +35,12 @@ export default function UnitActivitie(props) {
     setAmountVacancy(activities.capacity - activities.Users.length)
   }, [activities])
 
-  const qtdMinutos = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
+  //const qtdMinutos = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
 
   return (
     <CsUnitActivitie 
       backgroundcolor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
-      qtdminutos={qtdMinutos}
+      lengthdiv={lengthdiv()}
     >
       <div className="contentUnit">
         <div className="titleActivitie">{activities.name}</div>
@@ -46,7 +59,8 @@ export default function UnitActivitie(props) {
 
 const CsUnitActivitie = styled.div`
   width: 100%;
-  height: calc(1.33px * ${(p) => p.qtdminutos});
+  //height: calc(1.33px * ${(p) => p.qtdminutos});
+  height: ${(p) => p.lengthdiv}px;
   padding: 6px;
   border-radius: 5px;
   background-color: ${(p) => p.backgroundcolor};
