@@ -4,12 +4,12 @@ import ActivitiesContainer from "./ActivitiesContainer";
 
 
 export default function MoldPlaces(props) {
-    const {placeName, activities} = props;
+  const { placeName, activities } = props;
 
   return (
     <CsMoldPlaces>
-        <h3>{placeName}</h3>
-        <ActivitiesContainer activities={activities}/>
+      <h3>{placeName}</h3>
+      <ActivitiesContainer activities={activities} />
     </CsMoldPlaces>
   );
 }

@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Day from "./Day";
 import { useContext, useState } from "react";
 import { ActivityContext } from "../../contexts/ActivitiesContext";
+import dayjs from "dayjs";
 
 export default function Days() {
   const { days } = useContext(ActivityContext);
@@ -12,16 +13,16 @@ export default function Days() {
   };
 
   return (
-    
+
     <CsDays>
       {
-        days.map((day, index) => <Day 
-                                    key={index} 
-                                    day={day}
-                                    index={index} 
-                                    handleButtonClick={handleButtonClick}
-                                    activeButton={activeButton}
-                                  />)
+        days.map((day) => <Day
+          key={day.id}
+          dayName={`${day.dayName}, ${dayjs(day.date).format('DD/MM')}`}
+          index={day.id}
+          handleButtonClick={handleButtonClick}
+          activeButton={activeButton}
+        />)
       }
     </CsDays>
   );

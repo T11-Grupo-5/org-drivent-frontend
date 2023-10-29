@@ -1,7 +1,7 @@
 import api from './api';
 
-async function getActivities(token) {
-  const result = await api.get('/tickets/types', {
+async function getActivitiesByDayId(token, id) {
+  const result = await api.get(`/activity/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     }
@@ -9,8 +9,8 @@ async function getActivities(token) {
   return result.data
 }
 
-/* async function createTicket(token, ticketTypeId) {
-  const result = await api.post('/tickets', {ticketTypeId}, {
+async function getDays(token) {
+  const result = await api.get('/Days', {
     headers: {
       Authorization: `Bearer ${token}`,
     }
@@ -18,14 +18,13 @@ async function getActivities(token) {
   return result.data
 }
 
-async function getUserTicket(token) {
-  const result = await api.get('/tickets', {
+async function setEnrollment(token, id) {
+  const result = await api.put(`/activity/${id}`, {}, {
     headers: {
       Authorization: `Bearer ${token}`,
     }
   })
   return result.data
-} */
+}
 
-
-export const activitiesServices = { getActivities };
+export const activitiesServices = { getActivitiesByDayId, getDays, setEnrollment };

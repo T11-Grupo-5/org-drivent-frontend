@@ -1,40 +1,33 @@
 import { styled } from 'styled-components';
 import StatusActivitie from './StatusActivitie';
-import { useContext } from 'react';
-import { ActivityContext } from '../../contexts/ActivitiesContext';
+import { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-
-
+import UserContext from '../../contexts/UserContext';
 
 export default function UnitActivitie(props) {
   const { activities } = props;
-  //console.log(activities)
-  const qtdHoras = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
+  const { userData } = useContext(UserContext);
+  const [statusActivitie, setStatusActivitie] = useState(); //available, unavailable, registered
+  const [amountVacancy, setAmountVacancy] = useState()
 
-  //OBSERVAR A VARIAVEL "statusActivitie"  
-  //E OS VALORES STRINGS 
-  //QUE ELA ESTA PREPARADA PARA RECEBER!!
-  const statusActivitie = 'available'; //available, unavailable, registered
-  const amountVacancy = 27;
+  useEffect(() => {
+    if (activities.Users.filter(elem => elem.id === userData.user.id).length > 0) {
+      setStatusActivitie('registered')
+    } else if (activities.capacity > activities.Users.length) {
+      setStatusActivitie('available')
+    } else {
+      setStatusActivitie('unavailable')
+    }
+    
+    setAmountVacancy(activities.capacity - activities.Users.length)
+  }, [activities])
 
-
-  const semIdeia = new Date(activities.startTime)
-  console.log(activities.startTime, 'do jeito que vem do banco')
-  console.log(semIdeia, 'da forma com o Date transforma')
-  console.log(semIdeia.getHours())
-  const formatoBR = new Intl.DateTimeFormat('pt-BR');
-  console.log(formatoBR.format(semIdeia));
-
-  function teste() {
-    //console.log(activities)
-    //console.log(dayjs(activities.startTime).locale('pt-BR').toISOString().slice(11, 16))
-    console.log(dayjs(activities.startTime).locale('pt-BR'))
-  }
+  const qtdMinutos = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
 
   return (
-    <CsUnitActivitie onClick={() => teste()}
-      backgroundColor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
-      qtdHoras={qtdHoras}
+    <CsUnitActivitie 
+      backgroundcolor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
+      qtdminutos={qtdMinutos}
     >
       <div className="contentUnit">
         <div className="titleActivitie">{activities.name}</div>
@@ -43,6 +36,9 @@ export default function UnitActivitie(props) {
       <StatusActivitie
         statusActivitie={statusActivitie}
         amountVacancy={amountVacancy}
+        activityId={activities.id}
+        token={userData.token}
+        activities={activities}
       />
     </CsUnitActivitie>
   );
@@ -50,10 +46,10 @@ export default function UnitActivitie(props) {
 
 const CsUnitActivitie = styled.div`
   width: 100%;
-  height: calc(1.33px * ${(p) => p.qtdHoras});
+  height: calc(1.33px * ${(p) => p.qtdminutos});
   padding: 6px;
   border-radius: 5px;
-  background-color: ${(p) => p.backgroundColor};
+  background-color: ${(p) => p.backgroundcolor};
   display: flex;
   font-size: 12px;
   margin-bottom: 10px;

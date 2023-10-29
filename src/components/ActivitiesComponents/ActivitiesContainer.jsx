@@ -4,13 +4,13 @@ import UnitActivitie from "./UnitActivitie";
 
 
 export default function ActivitiesContainer(props) {
-
   const { activities } = props;
 
   return (
     <CsActivitiesContainer>
-      <UnitActivitie activities={activities}/>
-      <UnitActivitie activities={activities}/>
+     { 
+     activities.map((act, index) => <UnitActivitie key={index} activities={act} />)
+     }
     </CsActivitiesContainer>
   );
 }

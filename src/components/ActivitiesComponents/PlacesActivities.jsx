@@ -1,67 +1,35 @@
 import { styled } from "styled-components";
 import MoldPlaces from "./MoldPlaces";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ActivityContext } from "../../contexts/ActivitiesContext";
 
 export default function PlacesActivities() {
+  const { day } = useContext(ActivityContext);
 
-    const [places, setPlaces] = useState([{ name: 'Auditório Principal', activities: {
-        "id": 1,
-        "name": "Aula de C++",
-        "capacity": 2,
-        "startTime": "2023-10-26T09:00:00.145Z",
-        "endTime": "2023-10-26T11:14:05.145Z",
-        "halllId": 1,
-        "createdAt": "2023-10-26T19:14:05.145Z",
-        "updatedAt": "2023-10-26T19:06:42.803Z",
-        "Users": [
-          {
-            "id": 1
-          }
-        ]
-      }},
-     { name: 'Auditório Lateral', activities: {
-        "id": 2,
-        "name": "Aula de dajdawuodaw",
-        "capacity": 18,
-        "startTime": "1970-01-01T10:00:00.000Z",
-        "endTime": "1970-01-01T11:21:00.000Z",
-        "halllId": 1,
-        "createdAt": "2023-10-26T19:14:05.145Z",
-        "updatedAt": "2023-10-26T19:06:42.803Z",
-        "Users": [
-          {
-            "id": 1
-          }
-        ]
-      } },
-     { name: 'Sala de Workshop', activities: {
-        "id": 3,
-        "name": "Aula de pyhton",
-        "capacity": 8,
-        "startTime": "1970-01-01T11:00:00.000Z",
-        "endTime": "1970-01-01T12:00:00.000Z",
-        "halllId": 1,
-        "createdAt": "2023-10-26T19:14:05.145Z",
-        "updatedAt": "2023-10-26T19:06:42.803Z",
-        "Users": [
-          {
-            "id": 1
-          }
-        ]
-      } }]);
+  const atv1 = day.filter(day => day.hallId === 1);
+  const atv2 = day.filter(day => day.hallId === 2);
+  const atv3 = day.filter(day => day.hallId === 3);
 
-    const { day } = useContext(ActivityContext);
+  const atvs = [];
+  atvs.push(atv1)
+  atvs.push(atv2)
+  atvs.push(atv3)  
 
-    return (
-        <CsPlacesActivities>
-            {
-                places.map((place, index) =>
-                    <MoldPlaces key={index} placeName={place.name} activities={place.activities}/>
-                )
-            }
-        </CsPlacesActivities>
-    );
+  //'Auditório Principal', 'Auditório Lateral', 'Sala de Workshop'
+  const halls = [{hall: 'Auditório Principal'}, {hall: 'Auditório Lateral'}, {hall: 'Sala de Workshop'}];
+  const atvByHalls = halls.map((hall, index) => {
+    return {...hall, atv: atvs[index]}
+  })
+
+  return (
+    <CsPlacesActivities>
+      {
+        atvByHalls.map((hall, index) =>
+          <MoldPlaces key={index} placeName={hall.hall} activities={hall.atv}/>
+        )
+      }
+    </CsPlacesActivities>
+  );
 }
 
 const CsPlacesActivities = styled.div`

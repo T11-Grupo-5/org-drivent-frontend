@@ -5,20 +5,23 @@ import AvailableActivities from "../../../components/ActivitiesComponents/Availa
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../../contexts/UserContext";
 import { ticketServices } from "../../../services/ticketsApi";
-import ActivitiesContainer from "../../../components/ActivitiesComponents/ActivitiesContainer";
 import { ActivityContext } from "../../../contexts/ActivitiesContext";
+import { activitiesServices } from "../../../services/activitiesApi";
 
 export default function Activities() {
   const { userData } = useContext(UserContext);
-  const { day, days, setDay, setDays } = useContext(ActivityContext);
+  const { setDays } = useContext(ActivityContext);
   const [ticket, setTicket] = useState();
   const [ticketStatus, setTicketStatus] = useState()
   const [isRemote, setIsRemote] = useState()
-  const [events, setEvents] = useState()
 
   async function getTicket() {
     try {
       const ticket = await ticketServices.getUserTicket(userData.token)
+      const days = await activitiesServices.getDays(userData.token);
+      //setDays(days);
+      console.log(days)
+      setDays(days);
       setTicket(ticket);
       setTicketStatus(ticket.status);
       setIsRemote(ticket.TicketType.isRemote);
