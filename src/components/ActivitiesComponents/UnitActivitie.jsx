@@ -11,9 +11,9 @@ export default function UnitActivitie(props) {
   //console.log(activities)
   
   const lengthDiv = () =>{
-    const miliSecondForSecond = 60000;
+    const miliSecondForMinute = 60000;
     const spaceBetween = 10
-    const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForSecond;
+    const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForMinute;
     const qntHalfHours = Math.ceil(qtdMinutes/30)
     const sumLengthSpaces = qntHalfHours*35
     const sumlLengthSpaceBetween = (qntHalfHours-1)*spaceBetween
