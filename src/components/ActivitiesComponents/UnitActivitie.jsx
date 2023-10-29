@@ -9,7 +9,19 @@ import dayjs from 'dayjs';
 export default function UnitActivitie(props) {
   const { activities } = props;
   //console.log(activities)
-  const qtdHoras = (dayjs(activities.endTime) - dayjs(activities.startTime)) / 60000;
+  
+  const lengthDiv = () =>{
+    const miliSecondForSecond = 60000;
+    const qtdMinutes = (dayjs(activities.endTime) - dayjs(activities.startTime)) / miliSecondForSecond;
+    const HalfHours = Math.ceil(qtdMinutes/30)
+    let lengthDiv = HalfHours*40
+    if(HalfHours>2){
+      const qntSpaces = HalfHours-2;
+      lengthDiv += qntSpaces*5;
+      return lengthDiv;
+    }
+    return lengthDiv
+  }
 
   //OBSERVAR A VARIAVEL "statusActivitie"  
   //E OS VALORES STRINGS 
@@ -28,7 +40,7 @@ export default function UnitActivitie(props) {
   return (
     <CsUnitActivitie onClick={() => teste()}
       backgroundColor={statusActivitie === 'registered' ? '#D0FFDB' : '#f1f1f1'} //99E8A1 //CFCFCF
-      qtdHoras={qtdHoras}
+      lengthDiv={lengthDiv}
     >
       <div className="contentUnit">
         <div className="titleActivitie">{activities.name}</div>
@@ -44,7 +56,7 @@ export default function UnitActivitie(props) {
 
 const CsUnitActivitie = styled.div`
   width: 100%;
-  height: calc(1.33px * ${(p) => p.qtdHoras});
+  height: ${(p) => p.lengthDiv}px;
   padding: 6px;
   border-radius: 5px;
   background-color: ${(p) => p.backgroundColor};

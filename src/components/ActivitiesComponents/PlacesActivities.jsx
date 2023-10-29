@@ -25,7 +25,7 @@ export default function PlacesActivities() {
   return (
     <CsPlacesActivities>
       {halls.map((hall, index) => (
-        <MoldPlaces key={index} placeName={hall.name} activities={hall.activities} />
+        <MoldPlaces key={index} placeName={hall.name} activities={hall.Activities} />
       ))}
     </CsPlacesActivities>
   );
