@@ -8,7 +8,7 @@ export default function ActivitiesContainer(props) {
   const { activities } = props;
 
 
-
+  if(!activities)return ''
   return (
     <CsActivitiesContainer>
 

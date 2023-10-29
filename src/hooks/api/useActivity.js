@@ -1,9 +1,7 @@
 import useToken from '../useToken';
 import * as activityApi from '../../services/activityApi';
 
-export default async function useHall(dayId) {
-  const token = useToken();
-
+export default async function useHall(dayId, token) {
   try {
     const halls = await activityApi.getHallsByDayId(token, dayId);
     return halls;
