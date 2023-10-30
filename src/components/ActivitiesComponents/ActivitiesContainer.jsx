@@ -6,7 +6,6 @@ import UnitActivitie from "./UnitActivitie";
 export default function ActivitiesContainer(props) {
   const { activities } = props;
 
-
   if(!activities)return ''
   return (
     <CsActivitiesContainer>

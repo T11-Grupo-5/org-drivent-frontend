@@ -23,9 +23,9 @@ export default function Payment() {
     async function requests(){
       try {
         const checkEnrrolment = await getPersonalInformations(userData.token)
-        console.log(checkEnrrolment)
         const promise = await ticketServices.getTickets(userData.token)
         setTickets(promise)
+        console.log(promise)
         
       } catch (error) {
         console.log(error.response.data)

@@ -12,7 +12,7 @@ export function CardContainer(ticket) {
     const { paymentData, setPaymentData } = useContext(PaymentContext);
     const { savePaymentLoading, savePayment } = useSavePayment();
     const { ticketId } = useContext(TicketContext)
-
+    console.log(ticket)
     async function setPayment() {
         console.log(paymentData);
         delete (paymentData.status)
@@ -34,6 +34,7 @@ export function CardContainer(ticket) {
 
     useEffect(() => {
         console.log('ticket', ticketId)
+       
         if (ticketId) {
             setPaymentData((prevData) => ({
                 ...prevData,

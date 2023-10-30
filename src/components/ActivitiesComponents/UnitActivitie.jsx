@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import UserContext from '../../contexts/UserContext';
 
 export default function UnitActivitie(props) {
+  console.log(props)
   const { activities } = props;
   const { userData } = useContext(UserContext);
   const [statusActivitie, setStatusActivitie] = useState(); //available, unavailable, registered

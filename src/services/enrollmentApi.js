@@ -16,7 +16,6 @@ export async function getPersonalInformations(token) {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(response.data);
 
   return response.data;
 }

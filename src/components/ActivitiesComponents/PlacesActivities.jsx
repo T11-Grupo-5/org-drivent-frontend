@@ -1,14 +1,14 @@
 import { styled } from "styled-components";
 import MoldPlaces from "./MoldPlaces";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ActivityContext } from "../../contexts/ActivitiesContext";
 
 export default function PlacesActivities() {
   const { day } = useContext(ActivityContext);
 
-  const atv1 = day.filter(day => day.hallId === 1);
-  const atv2 = day.filter(day => day.hallId === 2);
-  const atv3 = day.filter(day => day.hallId === 3);
+  const atv1 = day.filter(day => day.halllId === 1);
+  const atv2 = day.filter(day => day.halllId === 2);
+  const atv3 = day.filter(day => day.halllId === 3);
 
   const atvs = [];
   atvs.push(atv1)
@@ -20,6 +20,7 @@ export default function PlacesActivities() {
   const atvByHalls = halls.map((hall, index) => {
     return {...hall, atv: atvs[index]}
   })
+
 
   return (
     <CsPlacesActivities>

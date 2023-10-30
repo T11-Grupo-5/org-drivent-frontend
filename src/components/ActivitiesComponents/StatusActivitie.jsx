@@ -11,10 +11,7 @@ import dayjs from "dayjs";
 export default function StatusActivitie(props) {
     const { amountVacancy, statusActivitie, activityId, token, activities } = props;
     const { setDay, dayId, activitiesHours } = useContext(ActivityContext);
-
     async function setEnrollment() {
-        console.log(activities.startTime)
-        console.log(activities.endTime)
 
         if(statusActivitie === 'available') {
             await activitiesServices.setEnrollment(token, activityId)

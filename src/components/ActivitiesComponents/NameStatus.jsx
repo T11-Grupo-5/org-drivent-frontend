@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 export default function NameStatus(props) {
     const {amountVacancy, statusActivitie} = props;
+    console.log(props)
   return (
     <CsNameStatus>
         
