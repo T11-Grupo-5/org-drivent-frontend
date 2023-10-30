@@ -14,7 +14,7 @@ import UserContext from '../../contexts/UserContext';
 
 import useSignIn from '../../hooks/api/useSignIn';
 import { styled } from '@mui/material';
-import redirectToGitHub from '../../services/githubApi';
+import { redirectToGitHub } from '../../services/githubApi';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -41,7 +41,6 @@ export default function SignIn() {
   }
 
   async function loginGithub() {
-    console.log(import.meta.env.VITE_GITHUB_REDIRECT_URL);
     redirectToGitHub();
   }
 
@@ -65,7 +64,7 @@ export default function SignIn() {
           <Button type="submit" color="primary" fullWidth disabled={loadingSignIn}>
             Entrar
           </Button>
-          <StyledButton variant="contained" fullWidth onClick={() => loginGithub()}>
+          <StyledButton variant="contained" fullWidth onClick={loginGithub}>
             Login Github
           </StyledButton>
         </form>
